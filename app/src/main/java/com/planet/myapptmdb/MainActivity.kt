@@ -18,32 +18,20 @@ import com.planet.myapptmdb.model.storage.DataSession
 import com.planet.myapptmdb.ui.main.FavMovieFragment
 import com.planet.myapptmdb.ui.main.ItemMovieFragment
 import com.planet.myapptmdb.ui.main.SectionsPagerAdapter
-import com.planet.myapptmdb.ui.main.dummy.DummyContent
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.lifecycle.ViewModelProviders
+import com.planet.myapptmdb.utils.OnListFragmentInteractionListener
 
-class MainActivity : AppCompatActivity(),
-    ItemMovieFragment.OnListFragmentInteractionListener {
-    var sectionsPagerAdapter: SectionsPagerAdapter? = null
-    var favFragment: FavMovieFragment? = null
-
-    override fun onListFragmentInteraction(item: ResultsItem?) {
-        //sectionsPagerAdapter!!.notifyDataSetChanged()
-        //favFragment!!.setListMovies(DataSession.getInstance().moviesSelected)
-    }
-
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-
-        favFragment = sectionsPagerAdapter!!.getItem(1) as FavMovieFragment
     }
 }

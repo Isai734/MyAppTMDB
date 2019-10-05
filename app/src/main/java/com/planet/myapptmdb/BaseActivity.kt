@@ -10,8 +10,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.planet.myapptmdb.model.ResponseError
 import com.planet.upaxtst.viewmodel.BaseObserver
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_itemmovie_list.*
 
-abstract class BaseActivity<T> : AppCompatActivity(), BaseObserver<T, ResponseError> {
+abstract class BaseActivity<T> : AppCompatActivity(), BaseObserver<T> {
 
     private var progressView: Snackbar? = null
     protected var moviesViewModel: DataViewModel? = null
@@ -22,7 +23,7 @@ abstract class BaseActivity<T> : AppCompatActivity(), BaseObserver<T, ResponseEr
     }
 
     override fun inProgress(info: String) {
-        if (progressView == null) progressView = Snackbar.make(fab, "", Snackbar.LENGTH_INDEFINITE)
+        if (progressView == null) progressView = Snackbar.make(list, "", Snackbar.LENGTH_INDEFINITE)
         progressView!!.setText(info).show()
     }
 

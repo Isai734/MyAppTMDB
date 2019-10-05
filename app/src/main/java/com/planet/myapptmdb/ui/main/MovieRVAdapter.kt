@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -14,11 +15,9 @@ import com.planet.myapptmdb.model.ResultsItem
 import com.planet.myapptmdb.model.storage.DataSession
 
 
-import com.planet.myapptmdb.ui.main.ItemMovieFragment.OnListFragmentInteractionListener
-import com.planet.myapptmdb.ui.main.dummy.DummyContent.DummyItem
+import com.planet.myapptmdb.utils.OnListFragmentInteractionListener
 
-import kotlinx.android.synthetic.main.fragment_itemmovie.view.*
-import java.security.AccessController.getContext
+import kotlinx.android.synthetic.main.item_movie.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [ResultsItem] and makes a call to the
@@ -30,17 +29,7 @@ class MovieRVAdapter(
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MovieRVAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
     val dataSession = DataSession.getInstance()
-
-    init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as ResultsItem
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
-        }
-    }
 
     fun swapDatta(mValues: List<ResultsItem>) {
         this.mValues = mValues
@@ -49,7 +38,7 @@ class MovieRVAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_itemmovie, parent, false)
+            .inflate(R.layout.item_movie, parent, false)
         return ViewHolder(view)
     }
 
@@ -58,8 +47,9 @@ class MovieRVAdapter(
         Glide.with(holder.mView).load(BASE_URL_IMAGES + item.posterPath)
             .placeholder(R.drawable.avatar_backgrpund).into(holder.mPosterView)
         holder.mNameMovie.text = item.originalTitle
-        holder.select.setOnClickListener(View.OnClickListener {
-            if (holder.select.isSelected)
+        if (mListener == null) holder.select.visibility = View.GONE
+        holder.select.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked)
                 dataSession.moviesSelected.add(item)
             else
                 dataSession.moviesSelected.remove(item)

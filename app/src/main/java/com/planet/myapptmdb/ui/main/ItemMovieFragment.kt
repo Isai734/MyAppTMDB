@@ -15,26 +15,27 @@ import com.google.android.material.snackbar.Snackbar
 import com.planet.myapptmdb.R
 import com.planet.myapptmdb.model.MoviesAll
 import com.planet.myapptmdb.model.ResultsItem
+import com.planet.myapptmdb.utils.OnListFragmentInteractionListener
 
-import com.planet.myapptmdb.ui.main.dummy.DummyContent.DummyItem
 import com.planet.upaxtst.viewmodel.BaseObserver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_itemmovie_list.*
 import java.util.*
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [ItemMovieFragment.OnListFragmentInteractionListener] interface.
- */
-class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll> {
+open class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll>,
+    OnListFragmentInteractionListener {
+
+    override fun onListFragmentInteraction(item: ResultsItem?) {
+        moviesViewModel!!.init02()
+    }
+
     override fun inProgress(info: String) {
         if (progressView == null) progressView = Snackbar.make(list, "", Snackbar.LENGTH_INDEFINITE)
         progressView!!.setText(info).show()
     }
 
     override fun onError(error: String) {
-        if (progressView != null) progressView!!.setDuration(Snackbar.LENGTH_LONG)
+        if (progressView != null) progressView!!.duration = 1000
         progressView!!.setText(error).show()
     }
 
@@ -43,17 +44,13 @@ class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll> {
         if (progressView != null) progressView!!.dismiss()
     }
 
-    // TODO: Customize parameters
     private var columnCount = 1
-    protected var moviesViewModel: DataViewModel? = null
+    private var moviesViewModel: DataViewModel? = null
     private var moviAdapter: MovieRVAdapter? = null
     private var progressView: Snackbar? = null
 
-    private var listener: OnListFragmentInteractionListener? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -64,7 +61,7 @@ class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll> {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_itemmovie_list, container, false)
-        moviAdapter = MovieRVAdapter(LinkedList<ResultsItem>(), listener)
+        moviAdapter = MovieRVAdapter(LinkedList<ResultsItem>(), this)
         // Set the movieRVAdapter
         if (view is RecyclerView) {
             with(view) {
@@ -80,32 +77,11 @@ class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        moviesViewModel = ViewModelProviders.of(this).get(DataViewModel::class.java)
+        moviesViewModel = activity?.run {
+            ViewModelProviders.of(this)[DataViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
         moviesViewModel!!.movieMutableData!!.observe(this, this)
         moviesViewModel!!.init()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
-
-    fun setListMovies(mValues: List<ResultsItem>) {
-        moviAdapter!!.swapDatta(mValues)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: ResultsItem?)
     }
 
     companion object {
