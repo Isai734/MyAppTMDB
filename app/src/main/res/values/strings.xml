@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyAppTMDB</string>
+    <string name="tab_text_1">Movies</string>
+    <string name="tab_text_2">Favorites</string>
+</resources>
