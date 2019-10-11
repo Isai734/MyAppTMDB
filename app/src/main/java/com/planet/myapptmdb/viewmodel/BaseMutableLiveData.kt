@@ -1,4 +1,4 @@
-package com.planet.upaxtst.viewmodel
+package com.planet.myapptmdb.viewmodel
 
 import android.util.Log
 import androidx.annotation.MainThread

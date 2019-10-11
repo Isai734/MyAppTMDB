@@ -1,26 +1,17 @@
 package com.geo
 
-import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.geo.viewmodel.DataViewModel
+import com.planet.myapptmdb.viewmodel.DataViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.planet.myapptmdb.model.ResponseError
-import com.planet.upaxtst.viewmodel.BaseObserver
-import kotlinx.android.synthetic.main.activity_main.*
+import com.planet.myapptmdb.viewmodel.BaseObserver
 import kotlinx.android.synthetic.main.fragment_itemmovie_list.*
 
 abstract class BaseActivity<T> : AppCompatActivity(), BaseObserver<T> {
 
     private var progressView: Snackbar? = null
     protected var moviesViewModel: DataViewModel? = null
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
-    }
 
     override fun inProgress(info: String) {
         if (progressView == null) progressView = Snackbar.make(list, "", Snackbar.LENGTH_INDEFINITE)

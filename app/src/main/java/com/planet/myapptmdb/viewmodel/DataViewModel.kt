@@ -1,31 +1,39 @@
-package com.geo.viewmodel
+package com.planet.myapptmdb.viewmodel
 
-import androidx.lifecycle.ViewModel
-import com.geo.utils.Constants.Companion.APIKEY
-import com.geo.utils.Constants.Companion.LAN
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.planet.myapptmdb.model.MoviesAll
+import com.planet.myapptmdb.model.entities.Person
 import com.planet.myapptmdb.model.ResultsItem
-import com.planet.myapptmdb.model.storage.DataSession
-import com.planet.upaxtst.networking.Repository
-import com.planet.upaxtst.viewmodel.BaseMutableLiveData
+import com.planet.myapptmdb.utils.DataSession
+import kotlinx.coroutines.launch
 
-class DataViewModel : ViewModel() {
+class DataViewModel(application: Application) : AndroidViewModel(application) {
 
     var movieMutableData: BaseMutableLiveData<MoviesAll>? = null
-    var movieFavMutableData: BaseMutableLiveData<List<ResultsItem>>? = null
+    var movieFavMutableData: MutableLiveData<List<ResultsItem>>? = null
+    private var repository: Repository? = null
 
     init {
+        repository = Repository(application)
         movieMutableData = BaseMutableLiveData()
-        movieFavMutableData = BaseMutableLiveData()
+        movieFavMutableData = MutableLiveData()
     }
 
-    fun init() {
-        val repository = Repository(movieMutableData!!)
-        movieMutableData!!.inProgress = "Obteniendo datos del servidor."
-        repository.onAttemp(repository.serverApi.listMovies(APIKEY, LAN))
+    fun getMovies() {
+        movieMutableData?.inProgress = "Obteniendo datos del servidor."
+        repository?.getAllMovies(movieMutableData!!)
     }
 
-    fun init02() {
-        movieFavMutableData!!.value = DataSession.getInstance().moviesSelected
+    fun getFavMovies() {
+        movieFavMutableData?.value = DataSession.instance.moviesSelected
+    }
+
+    fun getPersons() = repository?.getAllPersons()
+
+    fun insert(person: Person) = viewModelScope.launch {
+        repository?.insert(person)
     }
 }

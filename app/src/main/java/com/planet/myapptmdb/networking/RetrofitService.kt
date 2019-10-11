@@ -1,4 +1,4 @@
-package com.planet.upaxtst.networking
+package com.planet.myapptmdb.networking
 
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

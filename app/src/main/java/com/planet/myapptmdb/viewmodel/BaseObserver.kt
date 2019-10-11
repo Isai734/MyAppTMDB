@@ -1,4 +1,4 @@
-package com.planet.upaxtst.viewmodel
+package com.planet.myapptmdb.viewmodel
 
 import androidx.lifecycle.Observer
 
