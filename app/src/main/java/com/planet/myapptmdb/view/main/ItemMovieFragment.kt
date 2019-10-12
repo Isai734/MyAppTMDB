@@ -43,7 +43,7 @@ open class ItemMovieFragment : Fragment(), BaseObserver<MoviesAll>,
 
     override fun onError(error: String) {
         if (progressView != null) {
-            progressView!!.duration = 1000
+            progressView!!.duration = 3000
             progressView!!.setText(error).show()
         }
     }

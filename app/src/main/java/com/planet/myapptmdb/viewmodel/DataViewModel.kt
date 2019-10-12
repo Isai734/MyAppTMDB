@@ -1,6 +1,7 @@
 package com.planet.myapptmdb.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -28,7 +29,11 @@ class DataViewModel(application: Application) : AndroidViewModel(application) {
         movieMutableData?.inProgress = "Obteniendo datos del servidor."
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
-                repository?.getAllMovies(movieMutableData!!)
+                try {
+                    repository?.getAllMovies(movieMutableData!!)
+                } catch (t: Throwable) {
+                    movieMutableData?.error = t.message!!
+                }
             }
         }
     }

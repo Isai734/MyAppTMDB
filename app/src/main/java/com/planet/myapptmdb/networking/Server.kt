@@ -2,10 +2,7 @@ package com.planet.myapptmdb.networking
 
 import android.util.Log
 import com.planet.myapptmdb.model.ResponseErr
-import com.planet.myapptmdb.model.ResponseError
 import com.planet.myapptmdb.viewmodel.BaseMutableLiveData
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -29,8 +26,6 @@ class Server<E>(private val mutableData: BaseMutableLiveData<E>) {
             }
         } catch (e: HttpException) {
             mutableData.error = e.message!!
-        } catch (t: Throwable) {
-            mutableData.error = t.message.toString()
         }
         return mutableData
     }
