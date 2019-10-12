@@ -21,7 +21,7 @@ class Repository(application: Application) {
 
     fun getAllPersons() = databaseDao?.getAllPersons()
 
-    fun getAllMovies(movieMutableData: BaseMutableLiveData<MoviesAll>) {
+    suspend fun getAllMovies(movieMutableData: BaseMutableLiveData<MoviesAll>) {
         val repository = Server(movieMutableData)
         repository.onAttempt(serviceApi?.listMovies(Constants.APIKEY, Constants.LAN))
     }

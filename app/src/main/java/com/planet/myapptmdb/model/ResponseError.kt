@@ -2,6 +2,7 @@ package com.planet.myapptmdb.model
 
 import android.util.Log
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.io.IOException
 
@@ -27,8 +28,13 @@ class ResponseError {
     companion object {
         fun fromResponseBody(responseError: String): ResponseError? {
             try {
-                return Moshi.Builder().build().adapter(ResponseError::class.java)
-                    .fromJson(responseError)
+
+                val moshi: Moshi = Moshi.Builder().build()
+                val adapter: JsonAdapter<ResponseError> = moshi.adapter(ResponseError::class.java)
+                val movie = adapter.fromJson(responseError)
+                return movie
+                // return Moshi.Builder().build().adapter(ResponseError::class.java)
+                //   .fromJson(responseError)
             } catch (e: IOException) {
                 Log.d("ResponseError", e.toString())
             }

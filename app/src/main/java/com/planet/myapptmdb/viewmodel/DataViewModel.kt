@@ -8,7 +8,9 @@ import com.planet.myapptmdb.model.MoviesAll
 import com.planet.myapptmdb.model.entities.Person
 import com.planet.myapptmdb.model.ResultsItem
 import com.planet.myapptmdb.utils.DataSession
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DataViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,7 +26,11 @@ class DataViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getMovies() {
         movieMutableData?.inProgress = "Obteniendo datos del servidor."
-        repository?.getAllMovies(movieMutableData!!)
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                repository?.getAllMovies(movieMutableData!!)
+            }
+        }
     }
 
     fun getFavMovies() {
