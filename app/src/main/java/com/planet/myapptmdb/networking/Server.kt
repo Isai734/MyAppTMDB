@@ -31,8 +31,8 @@ class Server<E>(private val mutableData: BaseMutableLiveData<E>) : Callback<E> {
     }
 
     override fun onFailure(call: Call<E>, t: Throwable) {
-        Log.d(TAG, "onFailure: " + t.message)
-        mutableData.error = t.message.toString()
+        Log.w(TAG, "onFailure: ", t)
+        mutableData.error = t.message!!
     }
 
     companion object {
