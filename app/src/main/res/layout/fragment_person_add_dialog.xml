@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/fab_margin"
+    android:layout_marginRight="@dimen/fab_margin"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/list_item_spacing_half"
+    android:paddingBottom="@dimen/list_item_spacing_half">
+
+    <EditText
+        android:id="@+id/edt_person_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/appbar_padding"
+        android:autofillHints="@string/hint_name_person"
+        android:hint="@string/hint_name_person"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_person_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/appbar_padding"
+        android:autofillHints="@string/hint_age_person"
+        android:hint="@string/hint_age_person"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/buttom_add_person"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/appbar_padding"
+        android:layout_marginBottom="@dimen/appbar_padding"
+        android:text="@string/buttom_text_add_person" />
+</LinearLayout>

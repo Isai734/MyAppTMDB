@@ -3,4 +3,8 @@
     <string name="tab_text_1">Movies</string>
     <string name="tab_text_2">Favorites</string>
     <string name="in_progress">Obteniendo datos del servidor.</string>
+    <string name="action_list">Lista de personas</string>
+    <string name="hint_name_person">Nombre</string>
+    <string name="hint_age_person">Edad</string>
+    <string name="buttom_text_add_person">Agregar Persona</string>
 </resources>
