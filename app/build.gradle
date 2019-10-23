@@ -37,6 +37,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     testImplementation 'junit:junit:4.12'
+    //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.1.0'
     implementation "com.squareup.moshi:moshi:1.8.0"
@@ -56,12 +57,17 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
 
     // Room components
-    implementation "androidx.room:room-runtime:2.1.0"
-    implementation "androidx.room:room-ktx:2.1.0"
-    kapt "androidx.room:room-compiler:2.1.0"
-    androidTestImplementation "androidx.room:room-testing:2.1.0"
+    implementation "androidx.room:room-runtime:2.2.1"
+    implementation "androidx.room:room-ktx:2.2.1"
+    kapt "androidx.room:room-compiler:2.2.1"
+    androidTestImplementation "androidx.room:room-testing:2.2.1"
 
     // Coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0"
+
+    //RXJava
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 }
