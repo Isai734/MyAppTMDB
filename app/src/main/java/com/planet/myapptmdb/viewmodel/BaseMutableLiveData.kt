@@ -19,7 +19,7 @@ class BaseMutableLiveData<T> : MutableLiveData<T>() {
     var error = ""
         set(value) {
             if (baseObserver != null)
-                baseObserver!!.onError(value)
+                baseObserver?.onError(value)
             else
                 Log.e(TAG, "BaseObserver must be assigned from view")
         }
@@ -27,7 +27,7 @@ class BaseMutableLiveData<T> : MutableLiveData<T>() {
     var inProgress = ""
         set(value) {
             if (baseObserver != null)
-                baseObserver!!.inProgress(value)
+                baseObserver?.inProgress(value)
             else
                 Log.e(TAG, "BaseObserver must be assigned from view")
         }

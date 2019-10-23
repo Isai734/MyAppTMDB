@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +43,7 @@ class ListActivity : AppCompatActivity(), OnListInteractionListener<Person>,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
-        supportActionBar ?: supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         personRVAdapter = PersonRVAdapter(LinkedList(), this)
 
         with(list_person) {
@@ -51,6 +52,13 @@ class ListActivity : AppCompatActivity(), OnListInteractionListener<Person>,
         }
 
         fab_add_person.setOnClickListener {
+            /**
+             * De esta forma se hace que el dialogo ocupe toda la pantalla.
+             *
+            val personAddDialog = PersonAddDialog.newInstance()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            transaction.add(android.R.id.content, personAddDialog, personAddDialog.getTag()).commit()*/
             val personAddDialog = PersonAddDialog.newInstance()
             personAddDialog.show(supportFragmentManager, personAddDialog.tag)
         }
